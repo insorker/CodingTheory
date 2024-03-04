@@ -21,7 +21,7 @@ class BCH:
       # r_i = x^(n - i) mod g, i = 1,2,...,k
       r = poly_mod(self.gf.v2p(1 << (self.n - i - 1)), self.g)
       # 使 r 与 g[i] 对齐
-      r = np.pad(r, (0, self.n - len(r)))
+      r = np.pad(r, (self.n - len(r), 0))
       g[i] = poly_add(g[i], r)
 
     return g
