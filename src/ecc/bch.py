@@ -1,10 +1,11 @@
 import numpy as np
+from .base import EccBase
 import src.galois.poly as poly
 from src.galois.field import *
 from src.cstyle import *
 
 
-class BCH:
+class BCH(EccBase):
   def __init__(self, n: int, k: int, d: int, t: int, gf: Field, g: VecLike):
     self.n = n
     self.k = k
@@ -44,8 +45,11 @@ class BCH:
     s = (codeword @ h.T) % 2
     return np.array(np.split(s, self.t))
 
-  def encode(self, msg: np.ndarray) -> np.ndarray:
+  def encode(self, msg: PolyLike) -> PolyLike:
     return (msg @ self.get_g_matrix()) % 2
+  
+  def decode(self, msg: PolyLike) -> PolyLike:
+    return msg
   
   def decode_t1(self, codeword: np.ndarray) -> np.ndarray:
     s = self.get_s(codeword)[0]

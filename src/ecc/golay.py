@@ -1,10 +1,10 @@
 import numpy as np
+from .base import EccBase
 import src.galois.poly as poly
-from src.galois.field import *
 from src.galois.type import *
 
 
-class Golay_24_12:
+class Golay_24_12_8(EccBase):
   def __init__(self):
     self.g = poly.create(0b11011100010, 11)
     self.B = np.array(poly.create(0b111111111110, 12), dtype=int)

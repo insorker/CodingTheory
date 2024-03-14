@@ -4,7 +4,7 @@ from src.ecc.golay import *
 from src.galois.poly import *
 
 
-golay = Golay_24_12()
+golay = Golay_24_12_8()
 
 
 def test_1():
