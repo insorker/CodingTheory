@@ -21,22 +21,22 @@ class Golay_24_12_8(EccBase):
     s1 = poly.normalize(msg @ self.H_1)
 
     if poly.wt(s1) <= 3:
-      u = np.concatenate((s1, np.zeros(12, dtype=int)))
-      return poly.add(msg, u)
+      u = np.concatenate((s1, poly.create(0, 12)))
+      return poly.add(msg, u)[:12]
     else:
       for i in range(0, 12):
         if poly.wt(poly.add(s1, self.B[i])) <= 2:
-          u = np.concatenate((poly.add(s1, self.B[i]), np.pad([1], (i, 11 - i))))
-          return poly.add(msg, u)
+          u = np.concatenate((poly.add(s1, self.B[i]), poly.create(1 << (11 - i), 12)))
+          return poly.add(msg, u)[:12]
     
     s2 = poly.normalize(msg @ self.H_2)
     if poly.wt(s2) <= 3:
-      u = np.concatenate((s2, np.eye(12, dtype=int)))
-      return poly.add(msg, u)
+      u = np.concatenate((poly.create(0, 12), s2))
+      return poly.add(msg, u)[:12]
     else:
       for i in range(0, 12):
         if poly.wt(poly.add(s2, self.B[i])) <= 2:
-          u = np.concatenate((np.pad([1], (i, 11 - i)), poly.add(s2, self.B[i])))
-          return poly.add(msg, u)
+          u = np.concatenate((poly.create(1 << (11 - i)), poly.add(s2, self.B[i])))
+          return poly.add(msg, u)[:12]
         
-    return np.array([])
+    return poly.create(0)

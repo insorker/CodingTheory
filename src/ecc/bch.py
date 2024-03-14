@@ -42,11 +42,11 @@ class BCH(EccBase):
 
   def get_s(self, codeword: np.ndarray) -> np.ndarray:
     h = self.get_h_matrix()
-    s = (codeword @ h.T) % 2
+    s = poly.normalize(codeword @ h.T)
     return np.array(np.split(s, self.t))
 
   def encode(self, msg: PolyLike) -> PolyLike:
-    return (msg @ self.get_g_matrix()) % 2
+    return poly.normalize(msg @ self.get_g_matrix())
   
   def decode(self, msg: PolyLike) -> PolyLike:
     return msg
