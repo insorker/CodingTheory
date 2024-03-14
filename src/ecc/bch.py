@@ -1,6 +1,6 @@
 import numpy as np
+import src.galois.poly as poly
 from src.galois.field import *
-from src.galois.poly import *
 from src.cstyle import *
 
 
@@ -19,10 +19,10 @@ class BCH:
     for i in range(0, self.k):
       g[i][i] = 1
       # r_i = x^(n - i) mod g, i = 1,2,...,k
-      r = poly_mod(self.gf.v2p(1 << (self.n - i - 1)), self.g)
+      r = poly.mod(self.gf.v2p(1 << (self.n - i - 1)), self.g)
       # 使 r 与 g[i] 对齐
       r = np.pad(r, (self.n - len(r), 0))
-      g[i] = poly_add(g[i], r)
+      g[i] = poly.add(g[i], r)
 
     return g
     
