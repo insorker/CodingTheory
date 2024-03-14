@@ -1,8 +1,12 @@
 # Coding Theory
 
-About error correction coding.
+Simulation of error correction coding.
 
-## Usage && Develop
+- [x] galois field
+- [x] encoding and decoding algorithm 
+- [ ] c code
+
+## Setup
 
 ```shell
 python -m venv venv
@@ -11,8 +15,12 @@ pip install
 npm install
 ```
 
-run test
+## Run test
 
 ```shell
+# overall test
+python test/test.py
+
+# single test
 python test/test_ecc_golay.py
 ```
