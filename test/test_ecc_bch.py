@@ -17,7 +17,7 @@ def sim_err(codeword: PolyLike, n: int) -> PolyLike:
 def test():
   b = bch.BCH(15, 11, 3, 1, field.Field(4, 0b10011), 0b10011)
 
-  for i in range(0, 10):
+  for _ in range(0, 10):
     msg_send = np.random.randint(0, 2, size=b.k)
     codeword_send = b.encode(msg_send)
     codeword_recv = sim_err(codeword_send, b.n)
