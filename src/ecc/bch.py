@@ -31,7 +31,7 @@ class BCH:
 
     for i in range(0, self.t):
       for j in range(0, self.n):
-        e = self.gf.norm_e((2 * i + 1) * (self.n - 1 - j))
+        e = self.gf.normalize_e((2 * i + 1) * (self.n - 1 - j))
         p = self.gf.e2p(e)
 
         for k in range(0, self.gf.m):
