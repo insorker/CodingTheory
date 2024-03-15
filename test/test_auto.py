@@ -4,7 +4,13 @@ import src.channel.common as channel
 
 
 def test_auto_overall(n: int, k: int, t: int, ecc: EccBase):
-  """m0 =encode=> c0 =noise=> c1 =decode=> m1
+  """Automated testing for all procedures.
+
+  Args:
+      n (int): length of codeword
+      k (int): length of message
+      t (int): number of errors
+      ecc (EccBase): ecc model
   """
   msg = channel.it_message(k)
 
@@ -22,7 +28,7 @@ def test_auto_overall(n: int, k: int, t: int, ecc: EccBase):
         assert len(m1) == k, f"Decode Error: length ({len(m1), k}) dismatch."
 
         if not np.array_equal(m0, m1):
-          print(f"(msg, error, noise): ({i, j, l})")
+          print(f"Step({i, j, l}):")
           print(f"m0: {m0}")
           print(f"c0: {c0}")
           print(f"c1: {c1}")
@@ -31,7 +37,14 @@ def test_auto_overall(n: int, k: int, t: int, ecc: EccBase):
 
 
 def test_auto_rand(n: int, k: int, t: int, ecc: EccBase, times: tuple = (100, 100)):
-  """m0 =encode=> c0 =noise=> c1 =decode=> m1
+  """Automated testing for random procedures, repeated `times[0]` * `times[1]` times.
+
+  Args:
+      n (int): length of codeword
+      k (int): length of message
+      t (int): number of errors
+      ecc (EccBase): ecc model
+      times (tuple): (number of random messages, number of random noises)
   """
   for i in range(times[0]):
     m0 = channel.message(k)
@@ -45,7 +58,7 @@ def test_auto_rand(n: int, k: int, t: int, ecc: EccBase, times: tuple = (100, 10
         assert len(m1) == k, f"Decode Error: length ({len(m1), k}) dismatch."
 
         if not np.array_equal(m0, m1):
-          print(f"(msg, error, noise): ({i, j, l})")
+          print(f"Step({i, j, l}):")
           print(f"m0: {m0}")
           print(f"c0: {c0}")
           print(f"c1: {c1}")

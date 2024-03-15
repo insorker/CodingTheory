@@ -49,7 +49,9 @@ class BCH(EccBase):
     return poly.normalize(msg @ self.get_g_matrix())
   
   def decode(self, msg: PolyLike) -> PolyLike:
-    return self.decode_t1(msg)
+    if self.t == 1:
+      return self.decode_t1(msg)
+    return poly.create(0)
   
   def decode_t1(self, codeword: np.ndarray) -> np.ndarray:
     s = self.get_s(codeword)[0]
