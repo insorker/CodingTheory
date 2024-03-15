@@ -21,8 +21,9 @@ class Hamming(EccBase):
 
     data_idx = 0
     for i in self.check_idx:
-      codeword[i: 2 * i - 1] = msg[data_idx: data_idx + i - 1]
-      data_idx += i - 1
+      data_length = i - 1
+      codeword[i: i + data_length] = msg[data_idx: data_idx + data_length]
+      data_idx += data_length
     
     for i in self.check_idx:
       codeword[i - 1] = reduce(lambda x, y: x ^ y, [bit for (j, ), bit in np.ndenumerate(codeword) if (j + 1) % (2 * i) >= i])
@@ -34,11 +35,14 @@ class Hamming(EccBase):
     err = self.error_position(msg)
     if err != 0:
       msg[err - 1] = 1 - msg[err - 1]
+
     result = poly.create(0, self.k)
+
     data_idx = 0
     for i in self.check_idx:
-      result[data_idx: data_idx + i - 1] = msg[i: 2 * i - 1]
-      data_idx += i - 1
+      data_length = i - 1
+      result[data_idx: data_idx + data_length] = msg[i: i + data_length]
+      data_idx += data_length
     return result
 
   def error_position(self, msg: PolyLike) -> int:

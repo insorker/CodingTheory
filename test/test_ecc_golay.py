@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.ecc.golay import *
-from test_auto import *
+from tools import *
 
 
 def test_24_12():
