@@ -29,6 +29,6 @@ python test/test_ecc_golay.py
 
 ## Develop
 
-1. Write an error correction code class inheriting from EccBase.
+1. Write an error correction code class inheriting from `EccBase`.
 
 2. Add custom test or auto test in `test` folder. The test file must start with "test_".
