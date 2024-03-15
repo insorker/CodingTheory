@@ -36,7 +36,7 @@ class Golay_24_12_8(EccBase):
     else:
       for i in range(0, 12):
         if poly.wt(poly.add(s2, self.B[i])) <= 2:
-          u = np.concatenate((poly.create(1 << (11 - i)), poly.add(s2, self.B[i])))
+          u = np.concatenate((poly.create(1 << (11 - i), 12), poly.add(s2, self.B[i])))
           return poly.add(msg, u)[:12]
         
     return poly.create(0)

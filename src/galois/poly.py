@@ -8,6 +8,12 @@ def create(vec: VecLike, len: int = 0) -> PolyLike:
   return np.array([int(x) for x in bin(vec)[2:].zfill(len)], dtype=int)
 
 
+def to_vector(poly: PolyLike) -> VecLike:
+  """Convert polynomial to vector.
+  """
+  return sum(poly[i] << (len(poly) - 1 - i) for i in range(len(poly)))
+
+
 def normalize(poly: PolyLike) -> PolyLike:
   """Normalize elements of polynomial to 1 or 0.
   """
